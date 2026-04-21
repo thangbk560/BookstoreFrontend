@@ -192,10 +192,7 @@ export default function LoginPage() {
                             type="button"
                             variant="outline"
                             className="w-full flex items-center justify-center gap-2"
-                            onClick={() => {
-                                const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://bookstore-backend.onrender.com';
-                                window.location.href = `${apiUrl}/api/auth/google`;
-                            }}
+                            onClick={() => window.location.href = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/auth/google`}
                         >
                             <svg className="w-5 h-5" viewBox="0 0 24 24">
                                 <path
