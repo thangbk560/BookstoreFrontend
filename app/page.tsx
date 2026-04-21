@@ -10,6 +10,7 @@ import { ArrowRight, TrendingUp, Award, Truck } from "lucide-react";
 import { BookCard } from "@/components/books/BookCard";
 import { motion } from "framer-motion";
 
+
 interface Book {
   _id: string;
   title: string;
@@ -40,7 +41,7 @@ export default function HomePage() {
       try {
         setLoading(true);
         // Fetch featured books - limit to 5
-        const booksResponse = await fetch('http://localhost:3001/api/books?limit=5&sortBy=-rating');
+        const booksResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/books?limit=5&sortBy=-rating`);
         if (!booksResponse.ok) {
           throw new Error(`HTTP error! status: ${booksResponse.status}`);
         }
@@ -48,7 +49,7 @@ export default function HomePage() {
         setFeaturedBooks(booksData.books || booksData);
 
         // Fetch categories
-        const categoriesResponse = await fetch('http://localhost:3001/api/categories');
+        const categoriesResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`);
         if (!categoriesResponse.ok) {
           throw new Error(`HTTP error! status: ${categoriesResponse.status}`);
         }

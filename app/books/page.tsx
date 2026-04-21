@@ -61,7 +61,7 @@ function BooksContent() {
             params.append("limit", "20"); // Increased limit since cards are smaller
 
             const response = await fetch(
-                `http://localhost:3001/api/books?${params.toString()}`
+                `${process.env.NEXT_PUBLIC_API_URL}/api/books?${params.toString()}`
             );
 
             if (!response.ok) {

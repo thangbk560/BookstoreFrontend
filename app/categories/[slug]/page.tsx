@@ -50,14 +50,14 @@ export default function CategoryPage() {
             setLoading(true);
 
             // Fetch category details
-            const categoryResponse = await fetch(`http://localhost:3001/api/categories/slug/${slug}`);
+            const categoryResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories/slug/${slug}`);
             if (categoryResponse.ok) {
                 const categoryData = await categoryResponse.json();
                 setCategory(categoryData);
 
                 // Fetch books by category name
                 const booksResponse = await fetch(
-                    `http://localhost:3001/api/books?category=${encodeURIComponent(categoryData.name)}&sortBy=${sortBy}`
+                    `${process.env.NEXT_PUBLIC_API_URL}/api/books?category=${encodeURIComponent(categoryData.name)}&sortBy=${sortBy}`
                 );
                 if (booksResponse.ok) {
                     const booksData = await booksResponse.json();

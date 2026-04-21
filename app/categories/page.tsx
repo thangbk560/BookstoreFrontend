@@ -27,7 +27,7 @@ export default function CategoriesPage() {
     const fetchCategories = async () => {
         try {
             setLoading(true);
-            const response = await fetch("http://localhost:3001/api/categories");
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`);
 
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);

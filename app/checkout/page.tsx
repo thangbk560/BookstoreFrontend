@@ -57,7 +57,7 @@ export default function CheckoutPage() {
                 if (pendingOrderId && vnp_ResponseCode === '00') {
                     try {
                         // Cập nhật trạng thái đơn hàng thành công
-                        const response = await fetch(`http://localhost:3001/api/orders/${pendingOrderId}/status`, {
+                        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders/${pendingOrderId}/status`, {
                             method: 'PATCH',
                             headers: { 
                                 'Content-Type': 'application/json',
@@ -93,7 +93,7 @@ export default function CheckoutPage() {
 
     const fetchAddresses = async () => {
         try {
-            const response = await fetch("http://localhost:3001/api/users/addresses", {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/addresses`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem("access_token")}` },
             });
             if (response.ok) {
@@ -155,7 +155,7 @@ export default function CheckoutPage() {
         if (paymentMethod === 'cod') {
             // Handle COD order
             try {
-                const response = await fetch('http://localhost:3001/api/payment/cod', {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/payment/cod`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -208,7 +208,7 @@ export default function CheckoutPage() {
             // Handle VNPay payment
             try {
                 // Tạo đơn hàng trước để có orderId
-                const orderResponse = await fetch('http://localhost:3001/api/payment/cod', {
+                const orderResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/payment/cod`, {
                     method: 'POST',
                     headers: { 
                         'Content-Type': 'application/json',
@@ -251,7 +251,7 @@ export default function CheckoutPage() {
 
                 // Tạo thanh toán VNPay
                 const returnUrl = `${window.location.origin}/checkout`;
-                const paymentResponse = await fetch('http://localhost:3001/api/payment/vnpay/create', {
+                const paymentResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/payment/vnpay/create`, {
                     method: 'POST',
                     headers: { 
                         'Content-Type': 'application/json',

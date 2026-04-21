@@ -148,7 +148,7 @@ export default function DashboardPage() {
     const fetchAdminStats = async () => {
         try {
             setLoading(true);
-            const response = await fetch("http://localhost:3001/api/stats/dashboard", {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/stats/dashboard`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("access_token")}`,
                 },
@@ -174,7 +174,7 @@ export default function DashboardPage() {
     const fetchCategories = async () => {
         try {
             setLoading(true);
-            const response = await fetch("http://localhost:3001/api/categories", {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("access_token")}`,
                 },
@@ -199,8 +199,8 @@ export default function DashboardPage() {
         try {
             setLoading(true);
             const url = selectedCategory._id
-                ? `http://localhost:3001/api/categories/${selectedCategory._id}`
-                : "http://localhost:3001/api/categories";
+                ? `${process.env.NEXT_PUBLIC_API_URL}/api/categories/${selectedCategory._id}`
+                : "${process.env.NEXT_PUBLIC_API_URL}/api/categories";
 
             const method = selectedCategory._id ? "PUT" : "POST";
 
@@ -241,7 +241,7 @@ export default function DashboardPage() {
 
         try {
             setLoading(true);
-            const response = await fetch(`http://localhost:3001/api/categories/${id}`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories/${id}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("access_token")}`,
@@ -273,7 +273,7 @@ export default function DashboardPage() {
     const fetchBooks = async () => {
         try {
             setLoading(true);
-            const response = await fetch(`http://localhost:3001/api/books?page=${booksPage}&limit=${booksLimit}`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/books?page=${booksPage}&limit=${booksLimit}`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("access_token")}`,
                 },
@@ -299,8 +299,8 @@ export default function DashboardPage() {
         try {
             setLoading(true);
             const url = selectedBook._id
-                ? `http://localhost:3001/api/books/${selectedBook._id}`
-                : "http://localhost:3001/api/books";
+                ? `${process.env.NEXT_PUBLIC_API_URL}/api/books/${selectedBook._id}`
+                : "${process.env.NEXT_PUBLIC_API_URL}/api/books";
 
             const method = selectedBook._id ? "PUT" : "POST";
 
@@ -340,7 +340,7 @@ export default function DashboardPage() {
 
         try {
             setLoading(true);
-            const response = await fetch(`http://localhost:3001/api/books/${id}`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/books/${id}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("access_token")}`,
@@ -372,7 +372,7 @@ export default function DashboardPage() {
     const fetchAdminOrders = async () => {
         try {
             setLoading(true);
-            const response = await fetch("http://localhost:3001/api/orders/admin/all", {
+            const response = await fetch("${process.env.NEXT_PUBLIC_API_URL}/api/orders/admin/all", {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("access_token")}`,
                 },
@@ -391,7 +391,7 @@ export default function DashboardPage() {
     const handleUpdateOrderStatus = async (orderId: string, newStatus: string) => {
         try {
             setLoading(true);
-            const response = await fetch(`http://localhost:3001/api/orders/${orderId}/status`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders/${orderId}/status`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -427,7 +427,7 @@ export default function DashboardPage() {
 
     const fetchUserOrders = async () => {
         try {
-            const response = await fetch("http://localhost:3001/api/orders/my-orders", {
+            const response = await fetch("${process.env.NEXT_PUBLIC_API_URL}/api/orders/my-orders", {
                 headers: { Authorization: `Bearer ${localStorage.getItem("access_token")}` },
             });
             if (response.ok) {
@@ -441,7 +441,7 @@ export default function DashboardPage() {
 
     const fetchUserProfile = async () => {
         try {
-            const response = await fetch("http://localhost:3001/api/users/profile", {
+            const response = await fetch("${process.env.NEXT_PUBLIC_API_URL}/api/users/profile", {
                 headers: { Authorization: `Bearer ${localStorage.getItem("access_token")}` },
             });
             if (response.ok) setUserProfile(await response.json());
@@ -453,7 +453,7 @@ export default function DashboardPage() {
     const handleUpdateProfile = async () => {
         try {
             setLoading(true);
-            const response = await fetch("http://localhost:3001/api/users/profile", {
+            const response = await fetch("${process.env.NEXT_PUBLIC_API_URL}/api/users/profile", {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -478,7 +478,7 @@ export default function DashboardPage() {
 
     const fetchAddresses = async () => {
         try {
-            const response = await fetch("http://localhost:3001/api/users/addresses", {
+            const response = await fetch("${process.env.NEXT_PUBLIC_API_URL}/api/users/addresses", {
                 headers: { Authorization: `Bearer ${localStorage.getItem("access_token")}` },
             });
             if (response.ok) setAddresses(await response.json());
@@ -496,8 +496,8 @@ export default function DashboardPage() {
         try {
             setLoading(true);
             const url = selectedAddress._id
-                ? `http://localhost:3001/api/users/addresses/${selectedAddress._id}`
-                : "http://localhost:3001/api/users/addresses";
+                ? `${process.env.NEXT_PUBLIC_API_URL}/api/users/addresses/${selectedAddress._id}`
+                : "${process.env.NEXT_PUBLIC_API_URL}/api/users/addresses";
             const method = selectedAddress._id ? "PUT" : "POST";
 
             const response = await fetch(url, {
@@ -530,7 +530,7 @@ export default function DashboardPage() {
         if (!confirm("Bạn có chắc muốn xóa địa chỉ này?")) return;
         try {
             setLoading(true);
-            const response = await fetch(`http://localhost:3001/api/users/addresses/${id}`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/addresses/${id}`, {
                 method: "DELETE",
                 headers: { Authorization: `Bearer ${localStorage.getItem("access_token")}` },
             });
@@ -547,7 +547,7 @@ export default function DashboardPage() {
 
     const fetchFavorites = async () => {
         try {
-            const response = await fetch("http://localhost:3001/api/users/favorites", {
+            const response = await fetch("${process.env.NEXT_PUBLIC_API_URL}/api/users/favorites", {
                 headers: { Authorization: `Bearer ${localStorage.getItem("access_token")}` },
             });
             if (response.ok) setFavorites(await response.json());
@@ -559,7 +559,7 @@ export default function DashboardPage() {
     const handleRemoveFavorite = async (bookId: string) => {
         if (!confirm("Bạn có chắc muốn xóa khỏi danh sách yêu thích?")) return;
         try {
-            const response = await fetch(`http://localhost:3001/api/users/favorites/${bookId}`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/favorites/${bookId}`, {
                 method: "DELETE",
                 headers: { Authorization: `Bearer ${localStorage.getItem("access_token")}` },
             });
@@ -579,7 +579,7 @@ export default function DashboardPage() {
         }
         try {
             setLoading(true);
-            const response = await fetch("http://localhost:3001/api/users/change-password", {
+            const response = await fetch("${process.env.NEXT_PUBLIC_API_URL}/api/users/change-password", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
