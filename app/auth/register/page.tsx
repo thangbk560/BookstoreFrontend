@@ -236,7 +236,7 @@ export default function RegisterPage() {
                             variant="outline"
                             className="w-full"
                             size="lg"
-                            onClick={() => window.location.href = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/auth/google`}
+                            onClick={() => window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/api/auth/google`}
                         >
                             <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
                                 <path

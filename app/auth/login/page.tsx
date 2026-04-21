@@ -192,7 +192,7 @@ export default function LoginPage() {
                             type="button"
                             variant="outline"
                             className="w-full flex items-center justify-center gap-2"
-                            onClick={() => window.location.href = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/auth/google`}
+                            onClick={() => window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/api/auth/google`}
                         >
                             <svg className="w-5 h-5" viewBox="0 0 24 24">
                                 <path
