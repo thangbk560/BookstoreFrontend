@@ -32,6 +32,10 @@ interface Category {
 }
 
 export default function HomePage() {
+  console.log('=== ENVIRONMENT VARIABLES CHECK ===');
+  console.log('NEXT_PUBLIC_API_URL:', process.env.NEXT_PUBLIC_API_URL);
+  console.log('NEXT_PUBLIC_APP_URL:', process.env.NEXT_PUBLIC_APP_URL);
+
   const [featuredBooks, setFeaturedBooks] = useState<Book[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
