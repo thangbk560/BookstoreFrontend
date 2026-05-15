@@ -33,7 +33,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         // Check if user is already logged in
         const checkAuth = async () => {
             // Don't check auth on the callback page - let the callback page handle it
-            if (typeof window !== 'undefined' && window.location.pathname === '/auth/callback') {
+            if (typeof window !== 'undefined' && window.location.pathname === 'api/auth/callback') {
                 setLoading(false);
                 return;
             }
