@@ -29,20 +29,19 @@ export default function LoginPage() {
     const [captchaInput, setCaptchaInput] = useState("");
     const [accountLocked, setAccountLocked] = useState(false);
 
-    // Google Login handler
     const googleLogin = useGoogleLogin({
         onSuccess: async (tokenResponse) => {
             console.log('Google login success:', tokenResponse);
             
             try {
-                // CHỈ gửi access_token, không gửi thêm field nào khác
+                // CHỈ gửi access_token (không gửi id_token)
                 const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/google-token`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({ 
-                        access_token: tokenResponse.access_token  // Chỉ gửi access_token
+                        access_token: tokenResponse.access_token  // ✅ Chỉ gửi access_token
                     }),
                 });
 
@@ -65,7 +64,7 @@ export default function LoginPage() {
             console.error('Google login failed:', error);
             setError('Đăng nhập Google thất bại');
         },
-        flow: 'implicit',
+        flow: 'implicit',  // Dùng implicit flow để lấy access_token
     });
 
     const fetchCaptcha = async () => {
