@@ -139,14 +139,14 @@ export function Footer() {
                             <div className="flex space-x-2">
                                 {/* VNPay logo */}
                                 <img
-                                    src="vnpay.png"
+                                    src="../vnpay.png"
                                     alt="VNPay"
                                     className="h-8 object-contain"
                                 />
 
                                 {/* MoMo logo */}
                                 <img
-                                    src="momo.png"
+                                    src="../momo.png"
                                     alt="MoMo"
                                     className="h-8 object-contain"
                                 />
