@@ -192,12 +192,15 @@ export default function LoginPage() {
                             type="button"
                             variant="outline"
                             className="w-full flex items-center justify-center gap-2"
-                            onClick={() => window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?
-                                client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&
-                                redirect_uri=${encodeURIComponent('https://www.thangbk560.id.vn/api/auth/google/callback')}&
-                                response_type=code&
-                                scope=email profile&
-                                access_type=offline`}
+                            onClick={() => {
+                                const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?` +
+                                    `client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&` +
+                                    `redirect_uri=${encodeURIComponent('https://www.thangbk560.id.vn/api/auth/google/callback')}&` +
+                                    `response_type=code&` +
+                                    `scope=email%20profile&` +
+                                    `access_type=offline`;
+                                window.location.href = googleAuthUrl;
+                                }}
                         >
                             <svg className="w-5 h-5" viewBox="0 0 24 24">
                                 <path
