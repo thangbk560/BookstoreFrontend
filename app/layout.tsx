@@ -1,12 +1,10 @@
-'use client';
-
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
 import { LanguageProvider } from "@/lib/contexts/LanguageContext";
 import { AuthProvider } from "@/lib/contexts/AuthContext";
-import { GoogleOAuthProvider } from '@react-oauth/google';
+import ClientLayout from "@/components/ClientLayout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,20 +18,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '';
-
   return (
     <html lang="vi" suppressHydrationWarning>
       <body className={inter.className}>
-        <GoogleOAuthProvider clientId={googleClientId}>  {/* Wrap xung quanh */}
-          <Providers>
-            <AuthProvider>
-              <LanguageProvider>
-                {children}
-              </LanguageProvider>
-            </AuthProvider>
-          </Providers>
-        </GoogleOAuthProvider>
+        <ClientLayout>
+          {children}
+        </ClientLayout>
       </body>
     </html>
   );
