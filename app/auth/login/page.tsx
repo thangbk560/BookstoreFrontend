@@ -35,23 +35,22 @@ export default function LoginPage() {
             console.log('Google login success:', tokenResponse);
             
             try {
-                // Gửi access_token lên backend
+                // CHỈ gửi access_token, không gửi thêm field nào khác
                 const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/google-token`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ access_token: tokenResponse.access_token }),
+                    body: JSON.stringify({ 
+                        access_token: tokenResponse.access_token  // Chỉ gửi access_token
+                    }),
                 });
 
                 const data = await response.json();
 
                 if (response.ok && data.access_token) {
-                    // Lưu token
                     localStorage.setItem('access_token', data.access_token);
                     localStorage.setItem('refresh_token', data.refresh_token);
-                    
-                    // Chuyển hướng về dashboard
                     router.push('/dashboard');
                 } else {
                     console.error('Login failed:', data);
@@ -66,7 +65,7 @@ export default function LoginPage() {
             console.error('Google login failed:', error);
             setError('Đăng nhập Google thất bại');
         },
-        flow: 'implicit',  // Dùng implicit flow để lấy access_token trực tiếp
+        flow: 'implicit',
     });
 
     const fetchCaptcha = async () => {
