@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useGoogleLogin } from '@react-oauth/google';
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";
@@ -28,44 +27,6 @@ export default function LoginPage() {
     const [captchaId, setCaptchaId] = useState("");
     const [captchaInput, setCaptchaInput] = useState("");
     const [accountLocked, setAccountLocked] = useState(false);
-
-    const googleLogin = useGoogleLogin({
-        onSuccess: async (tokenResponse) => {
-            console.log('Google login success:', tokenResponse);
-            
-            try {
-                // CHỈ gửi access_token (không gửi id_token)
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/google-token`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ 
-                        access_token: tokenResponse.access_token  // ✅ Chỉ gửi access_token
-                    }),
-                });
-
-                const data = await response.json();
-
-                if (response.ok && data.access_token) {
-                    localStorage.setItem('access_token', data.access_token);
-                    localStorage.setItem('refresh_token', data.refresh_token);
-                    router.push('/dashboard');
-                } else {
-                    console.error('Login failed:', data);
-                    setError(data.message || 'Đăng nhập thất bại');
-                }
-            } catch (error) {
-                console.error('Google login error:', error);
-                setError('Có lỗi xảy ra khi đăng nhập với Google');
-            }
-        },
-        onError: (error) => {
-            console.error('Google login failed:', error);
-            setError('Đăng nhập Google thất bại');
-        },
-        flow: 'implicit',  // Dùng implicit flow để lấy access_token
-    });
 
     const fetchCaptcha = async () => {
         try {
@@ -231,7 +192,12 @@ export default function LoginPage() {
                             type="button"
                             variant="outline"
                             className="w-full flex items-center justify-center gap-2"
-                            onClick={() => googleLogin()}
+                            onClick={() => window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?
+                                client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&
+                                redirect_uri=${encodeURIComponent('https://www.thangbk560.id.vn/api/auth/google/callback')}&
+                                response_type=code&
+                                scope=email profile&
+                                access_type=offline`}
                         >
                             <svg className="w-5 h-5" viewBox="0 0 24 24">
                                 <path
