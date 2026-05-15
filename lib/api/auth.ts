@@ -39,7 +39,7 @@ export interface LoginResponse extends AuthResponse {
 
 export const authApi = {
     login: async (credentials: LoginCredentials): Promise<LoginResponse | any> => {
-        const response = await apiClient.post("/auth/login", credentials);
+        const response = await apiClient.post("api/auth/login", credentials);
         if (response.data.access_token) {
             localStorage.setItem("access_token", response.data.access_token);
             localStorage.setItem("refresh_token", response.data.refresh_token);
@@ -48,7 +48,7 @@ export const authApi = {
     },
 
     signup: async (data: SignupData): Promise<SignupResponse> => {
-        const response = await apiClient.post("/auth/signup", data);
+        const response = await apiClient.post("api/auth/signup", data);
         if (response.data.access_token) {
             localStorage.setItem("access_token", response.data.access_token);
             localStorage.setItem("refresh_token", response.data.refresh_token);
@@ -57,7 +57,7 @@ export const authApi = {
     },
 
     verifyRegistration: async (email: string, otp: string): Promise<AuthResponse> => {
-        const response = await apiClient.post("/auth/verify-registration", { email, otp });
+        const response = await apiClient.post("api/auth/verify-registration", { email, otp });
         if (response.data.access_token) {
             localStorage.setItem("access_token", response.data.access_token);
             localStorage.setItem("refresh_token", response.data.refresh_token);
@@ -66,7 +66,7 @@ export const authApi = {
     },
 
     getCaptcha: async (): Promise<{ image: string; id: string }> => {
-        const response = await apiClient.get("/auth/captcha");
+        const response = await apiClient.get("api/auth/captcha");
         return response.data;
     },
 
@@ -76,7 +76,7 @@ export const authApi = {
     },
 
     getCurrentUser: async () => {
-        const response = await apiClient.get("/auth/me");
+        const response = await apiClient.get("api/auth/me");
         return response.data;
     },
 };
