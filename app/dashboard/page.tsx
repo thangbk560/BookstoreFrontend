@@ -6,10 +6,11 @@ import { Footer } from "@/components/layout/Footer";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { useAuth } from "@/lib/contexts/AuthContext";
-import { LogOut, BarChart3, Package, BookOpen, FolderOpen, User, MapPin, Heart, Settings as SettingsIcon, ShoppingBag, Star, Eye, EyeOff } from "lucide-react";
+import { LogOut, BarChart3, Package, BookOpen, FolderOpen, User, MapPin, Heart, Settings as SettingsIcon, ShoppingBag, Star, Eye, EyeOff, Ticket } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { BookCard } from "@/components/books/BookCard";
 import { ordersApi } from "@/lib/api/orders";
+import AdminPromoCodesPage from '@/app/admin/promo-codes/page'; 
 
 interface DashboardStats {
     totalBooks: number;
@@ -79,7 +80,7 @@ export default function DashboardPage() {
     const isAdmin = user?.role === 'admin';
 
     // Admin tabs
-    const [adminTab, setAdminTab] = useState<"statistics" | "orders" | "books" | "categories">("statistics");
+    const [adminTab, setAdminTab] = useState<"statistics" | "orders" | "books" | "categories" | "promo-codes">("statistics");
 
     // User tabs
     const [activeTab, setActiveTab] = useState<"orders" | "profile" | "addresses" | "favorites" | "settings">("orders");
@@ -682,6 +683,16 @@ export default function DashboardPage() {
                                         >
                                             <FolderOpen className="w-5 h-5" />
                                             Danh mục
+                                        </button>
+                                        <button
+                                            onClick={() => setAdminTab("promo-codes")}
+                                            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${adminTab === "promo-codes"
+                                                ? "bg-primary text-white"
+                                                : "text-light-text-secondary dark:text-dark-text-secondary hover:bg-light-border dark:hover:bg-dark-border"
+                                                }`}
+                                        >
+                                            <Ticket className="w-5 h-5" />
+                                            Mã giảm giá
                                         </button>
                                         <button
                                             onClick={handleLogout}
@@ -1338,6 +1349,9 @@ export default function DashboardPage() {
                                             </div>
                                         )}
                                     </div>
+                                )}
+                                {adminTab === "promo-codes" && (
+                                    <AdminPromoCodesPage />
                                 )}
                             </div>
                         ) : (

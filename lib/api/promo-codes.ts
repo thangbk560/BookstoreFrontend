@@ -2,15 +2,15 @@ import apiClient from "./client";
 
 export const promoCodesApi = {
     validate: async (code: string, orderValue: number) => {
-        const response = await apiClient.get(`/promo-codes/validate?code=${code}&orderValue=${orderValue}`);
+        const response = await apiClient.get(`/api/promo-codes/validate?code=${code}&orderValue=${orderValue}`);
         return response.data;
     },
     getAll: async () => {
-        const response = await apiClient.get('/promo-codes');
+        const response = await apiClient.get('/api/promo-codes');
         return response.data;
     },
     create: async (data: any) => {
-        const response = await apiClient.post('/promo-codes', data);
+        const response = await apiClient.post('/api/promo-codes', data);
         return response.data;
     },
     delete: async (id: string) => {
@@ -26,7 +26,7 @@ export const promoCodesApi = {
         // The backend controller I wrote has: create, findAll, validate.
         // I need to update backend controller to support delete/deactivate.
         // Let's update the API client assuming the backend will be updated.
-        const response = await apiClient.delete(`/promo-codes/${id}`);
+        const response = await apiClient.delete(`/api/promo-codes/${id}`);
         return response.data;
     }
 };

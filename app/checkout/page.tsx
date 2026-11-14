@@ -51,43 +51,20 @@ export default function CheckoutPage() {
         const vnp_ResponseCode = urlParams.get('vnp_ResponseCode');
         
         if (vnp_ResponseCode) {
-            const processVNPayCallback = async () => {
-                const pendingOrderId = localStorage.getItem('pendingOrderId');
-                
-                if (pendingOrderId && vnp_ResponseCode === '00') {
-                    try {
-                        // Cập nhật trạng thái đơn hàng thành công
-                        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders/${pendingOrderId}/status`, {
-                            method: 'PATCH',
-                            headers: { 
-                                'Content-Type': 'application/json',
-                                'Authorization': `Bearer ${localStorage.getItem("access_token")}`
-                            },
-                            body: JSON.stringify({ status: 'paid' }),
-                        });
-                        
-                        if (response.ok) {
-                            removeSelected();
-                            removePromoCode();
-                            localStorage.removeItem('pendingOrderId');
-                            // Xóa params trên URL
-                            window.history.replaceState({}, document.title, window.location.pathname);
-                            window.location.href = '/order-confirmation';
-                        } else {
-                            alert('Cập nhật đơn hàng thất bại. Vui lòng liên hệ hỗ trợ.');
-                        }
-                    } catch (error) {
-                        console.error('Error updating order status:', error);
-                        alert('Có lỗi xảy ra. Vui lòng liên hệ hỗ trợ.');
-                    }
-                } else if (vnp_ResponseCode && vnp_ResponseCode !== '00') {
-                    alert(`Thanh toán thất bại (Mã lỗi: ${vnp_ResponseCode}). Vui lòng thử lại.`);
-                    localStorage.removeItem('pendingOrderId');
-                    window.history.replaceState({}, document.title, window.location.pathname);
-                }
-            };
-            
-            processVNPayCallback();
+            if (vnp_ResponseCode === '00') {
+                // Thanh toán thành công
+                removeSelected();
+                removePromoCode();
+                localStorage.removeItem('pendingOrderId');
+                // Xóa params trên URL và chuyển hướng
+                window.history.replaceState({}, document.title, window.location.pathname);
+                window.location.href = '/order-confirmation';
+            } else {
+                // Thanh toán thất bại hoặc bị hủy
+                alert(`Thanh toán thất bại (Mã lỗi: ${vnp_ResponseCode}). Vui lòng thử lại.`);
+                localStorage.removeItem('pendingOrderId');
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
         }
     }, [removeSelected, removePromoCode]);
 
@@ -180,6 +157,7 @@ export default function CheckoutPage() {
                         total: grandTotal,
                         discount: discount,
                         promoCode: promoCode,
+                        paymentMethod: 'vnpay',
                     }),
                 });
 
@@ -258,7 +236,6 @@ export default function CheckoutPage() {
                     },
                     body: JSON.stringify({
                         orderId: orderData.orderId,
-                        amount: grandTotal,
                         returnUrl: returnUrl,
                     }),
                 });
