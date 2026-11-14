@@ -39,7 +39,7 @@ export interface LoginResponse extends AuthResponse {
 
 export const authApi = {
     login: async (credentials: LoginCredentials): Promise<LoginResponse | any> => {
-        const response = await apiClient.post("/auth/login", credentials);
+        const response = await apiClient.post("/api/auth/login", credentials);
         if (response.data.access_token) {
             localStorage.setItem("access_token", response.data.access_token);
             localStorage.setItem("refresh_token", response.data.refresh_token);
