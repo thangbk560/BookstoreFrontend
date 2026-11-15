@@ -498,7 +498,7 @@ export default function DashboardPage() {
             setLoading(true);
             const url = selectedAddress._id
                 ? `${process.env.NEXT_PUBLIC_API_URL}/api/users/addresses/${selectedAddress._id}`
-                : '${process.env.NEXT_PUBLIC_API_URL}/api/users/addresses';
+                : `${process.env.NEXT_PUBLIC_API_URL}/api/users/addresses`;
             const method = selectedAddress._id ? "PUT" : "POST";
 
             const response = await fetch(url, {
