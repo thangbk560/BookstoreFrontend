@@ -479,7 +479,7 @@ export default function DashboardPage() {
 
     const fetchAddresses = async () => {
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/addresses`   , {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/addresses`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem("access_token")}` },
             });
             if (response.ok) setAddresses(await response.json());
