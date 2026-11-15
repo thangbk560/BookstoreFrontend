@@ -27,17 +27,17 @@ export const bookApi = {
         page?: number;
         limit?: number;
     }) => {
-        const response = await apiClient.get("/books", { params });
+        const response = await apiClient.get("/api/books", { params });
         return response.data;
     },
 
     getBookById: async (id: string) => {
-        const response = await apiClient.get(`/books/${id}`);
+        const response = await apiClient.get(`/api/books/${id}`);
         return response.data;
     },
 
     searchBooks: async (query: string) => {
-        const response = await apiClient.get("/books/search", {
+        const response = await apiClient.get("/api/books/search", {
             params: { q: query },
         });
         return response.data;
@@ -45,17 +45,17 @@ export const bookApi = {
 
     // Admin endpoints
     createBook: async (bookData: Partial<Book>) => {
-        const response = await apiClient.post("/books", bookData);
+        const response = await apiClient.post("/api/books", bookData);
         return response.data;
     },
 
     updateBook: async (id: string, bookData: Partial<Book>) => {
-        const response = await apiClient.put(`/books/${id}`, bookData);
+        const response = await apiClient.put(`/api/books/${id}`, bookData);
         return response.data;
     },
 
     deleteBook: async (id: string) => {
-        const response = await apiClient.delete(`/books/${id}`);
+        const response = await apiClient.delete(`/api/books/${id}`);
         return response.data;
     },
 };
