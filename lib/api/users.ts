@@ -23,42 +23,42 @@ export interface Address {
 
 export const usersApi = {
     getProfile: async () => {
-        const response = await apiClient.get("/users/profile");
+        const response = await apiClient.get("/api/users/profile");
         return response.data;
     },
 
     updateProfile: async (data: UpdateProfileData) => {
-        const response = await apiClient.put("/users/profile", data);
+        const response = await apiClient.put("/api/users/profile", data);
         return response.data;
     },
 
     changePassword: async (data: ChangePasswordData) => {
-        const response = await apiClient.post("/users/change-password", data);
+        const response = await apiClient.post("/api/users/change-password", data);
         return response.data;
     },
 
     getAddresses: async () => {
-        const response = await apiClient.get("/users/addresses");
+        const response = await apiClient.get("/api/users/addresses");
         return response.data;
     },
 
     addAddress: async (data: Address) => {
-        const response = await apiClient.post("/users/addresses", data);
+        const response = await apiClient.post("/api/users/addresses", data);
         return response.data;
     },
 
     updateAddress: async (id: string, data: Address) => {
-        const response = await apiClient.put(`/users/addresses/${id}`, data);
+        const response = await apiClient.put(`/api/users/addresses/${id}`, data);
         return response.data;
     },
 
     deleteAddress: async (id: string) => {
-        const response = await apiClient.delete(`/users/addresses/${id}`);
+        const response = await apiClient.delete(`/api/users/addresses/${id}`);
         return response.data;
     },
 
     setDefaultAddress: async (id: string) => {
-        const response = await apiClient.put(`/users/addresses/${id}/default`, {});
+        const response = await apiClient.put(`/api/users/addresses/${id}/default`, {});
         return response.data;
     }
 };
